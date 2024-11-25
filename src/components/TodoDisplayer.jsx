@@ -1,45 +1,13 @@
 import StickyNote from "./StickyNote";
-import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
-function TodoDisplayer({
-  List,
-  getTaskid,
-  showCtasks,
-  showICtasks,
-  Ischecked,
-  Set_Position,
-}) {
-  function checkStatus(check, id) {
-    Ischecked(check, id);
-  }
-
-  function getSN_Position(top, left, id) {
-    Set_Position(top, left, id);
-  }
-
-  const listItems = List.map((task, index) => (
-    <StickyNote
-      task={task}
-      index={index}
-      getTaskid={getTaskid}
-      showCtask={showCtasks}
-      showICtask={showICtasks}
-      key={task.id}
-      checkStatus={checkStatus}
-      getSN_Position={getSN_Position}
-    />
+function TodoDisplayer() {
+  const tasks = useSelector((state) => state.tasks.AllTasks);
+  const listItems = tasks.map((task, index) => (
+    <StickyNote task={task} key={task.id} index={index} />
   ));
 
   return <>{listItems}</>;
 }
 
 export default TodoDisplayer;
-
-TodoDisplayer.propTypes = {
-  List: PropTypes.array,
-  getTaskid: PropTypes.func,
-  showCtasks: PropTypes.bool,
-  showICtasks: PropTypes.bool,
-  Ischecked: PropTypes.func,
-  Set_Position: PropTypes.func,
-};

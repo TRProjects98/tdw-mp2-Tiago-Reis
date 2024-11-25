@@ -1,23 +1,30 @@
-import PropTypes from "prop-types";
+import { useSelector, useDispatch } from "react-redux";
+import { Add_a_Task } from "../store";
+import { useState } from "react";
 
-function TodoForm({ sendDataToParent, ListLength }) {
+function TodoForm() {
+  const [color, setColor] = useState("#e2e052");
+  const dispach = useDispatch();
+  const tasks = useSelector((state) => state.tasks.AllTasks);
+
   const formHandler = (e) => {
     e.preventDefault();
 
     const inpuTask = document.querySelector("#formTaskInput").value;
     const formTag = document.querySelector("form");
 
-    if (inpuTask.length !== 0 && inpuTask != null) {
-      const NoteValues = {
-        name: inpuTask,
-        id: ListLength,
-        top: 0,
-        left: 0,
-        ischeck: false,
-      };
-      sendDataToParent(NoteValues);
-      formTag.reset();
-    }
+    const NoteValuesV3 = {
+      name: inpuTask,
+      id: tasks.length,
+      top: 0,
+      left: 0,
+      ischeck: false,
+      NoteColor: color,
+    };
+
+    dispach(Add_a_Task(Object(NoteValuesV3)));
+
+    formTag.reset();
   };
 
   return (
@@ -27,6 +34,15 @@ function TodoForm({ sendDataToParent, ListLength }) {
         <form onSubmit={formHandler}>
           <label>Tasks</label>
           <br></br>
+          <input
+            type="color"
+            id="formColorTaskInput"
+            name="formColorTaskInput"
+            value={color}
+            onChange={(e) => {
+              setColor(e.target.value);
+            }}
+          ></input>
           <input
             type="text"
             id="formTaskInput"
@@ -40,8 +56,3 @@ function TodoForm({ sendDataToParent, ListLength }) {
   );
 }
 export default TodoForm;
-
-TodoForm.propTypes = {
-  sendDataToParent: PropTypes.func,
-  ListLength: PropTypes.number,
-};

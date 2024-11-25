@@ -1,16 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter } from "@fortawesome/free-solid-svg-icons";
-import PropTypes from "prop-types";
-
-function TodoFilters({
-  filterCtasks,
-  filterICtasks,
-  setfilterCtasks,
-  setfilterICtasks,
-}) {
-  function handle() {
-    setfilterCtasks((filterCtasks) => !filterCtasks);
-  }
+import { useSelector, useDispatch } from "react-redux";
+import { Toogle_Filters } from "../store";
+function TodoFilters() {
+  const dispach = useDispatch();
+  const CompletedTasks = useSelector((state) => state.tasks.ShowCompletedTasks);
+  const IncompletedTasks = useSelector(
+    (state) => state.tasks.ShowIncompletedTasks
+  );
   return (
     <>
       <div className="divFilters">
@@ -20,8 +17,10 @@ function TodoFilters({
             type="checkbox"
             id="c-tasks"
             name="Show completed tasks"
-            checked={filterCtasks ? "checked" : ""}
-            onClick={handle}
+            checked={CompletedTasks ? "checked" : ""}
+            onChange={() => {
+              dispach(Toogle_Filters(String("CT")));
+            }}
           />
           <label htmlFor="c-tasks">Completed tasks</label>
           <br></br>
@@ -29,9 +28,9 @@ function TodoFilters({
             type="checkbox"
             id="ic-tasks"
             name="Show incompleted tasks"
-            checked={filterICtasks ? "checked" : ""}
-            onClick={() => {
-              setfilterICtasks((filterICtasks) => !filterICtasks);
+            checked={IncompletedTasks ? "checked" : ""}
+            onChange={() => {
+              dispach(Toogle_Filters(String("ICT")));
             }}
           />
           <label htmlFor="ic-tasks">Incompleted tasks</label>
@@ -43,10 +42,3 @@ function TodoFilters({
 }
 
 export default TodoFilters;
-
-TodoFilters.propTypes = {
-  filterCtasks: PropTypes.bool,
-  filterICtasks: PropTypes.bool,
-  setfilterCtasks: PropTypes.func,
-  setfilterICtasks: PropTypes.func,
-};

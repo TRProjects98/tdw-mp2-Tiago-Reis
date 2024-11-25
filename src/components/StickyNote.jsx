@@ -2,42 +2,55 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Delete_a_Task,
+  Toogle_Ischeck,
+  Set_Position,
+  Counter_Maths,
+} from "../store";
 
-function StickyNote({
-  task,
-  index,
-  getTaskid,
-  showCtask,
-  showICtask,
-  checkStatus,
-  getSN_Position,
-}) {
+function StickyNote({ task, index }) {
+  const dispach = useDispatch();
+  const CompletedTasks = useSelector((state) => state.tasks.ShowCompletedTasks);
+  const IncompletedTasks = useSelector(
+    (state) => state.tasks.ShowIncompletedTasks
+  );
+
+  //State Variables
   const [isVisible, setVisible] = useState();
   const [isCompleteCheck, setisCompleteChek] = useState(task.ischeck);
+
+  //Other Variables
   const topPos = task.top;
   const leftPos = task.left;
   const NoteDiv = useRef();
 
   const completedToogle = () => {
-    checkStatus(isCompleteCheck, task.id);
+    dispach(Toogle_Ischeck(Number(task.id)));
     setisCompleteChek((isCompleteCheck) => !isCompleteCheck);
+    if (isCompleteCheck) {
+      dispach(Counter_Maths(String("sub")));
+    } else {
+      dispach(Counter_Maths(String("add")));
+    }
   };
 
   useEffect(() => {
     if (isCompleteCheck) {
-      if (showCtask) {
+      if (CompletedTasks) {
         setVisible(true);
       } else {
         setVisible(false);
       }
     } else {
-      if (showICtask) {
+      if (IncompletedTasks) {
         setVisible(true);
       } else {
         setVisible(false);
       }
     }
-  }, [showCtask, showICtask, isCompleteCheck]);
+  }, [CompletedTasks, IncompletedTasks, isCompleteCheck]);
 
   let cursor = {
     x: null,
@@ -77,7 +90,12 @@ function StickyNote({
   }
 
   function MUp() {
-    getSN_Position(note.dom.style.top, note.dom.style.left, task.id);
+    const position_val_for_store = [
+      task.id,
+      note.dom.style.top,
+      note.dom.style.left,
+    ];
+    dispach(Set_Position(position_val_for_store));
     if (note.dom == null) return;
     note.dom.style.cursor = "auto";
     note.dom = null;
@@ -91,8 +109,9 @@ function StickyNote({
         id={`task${task.id}`}
         style={{
           display: isVisible ? "flex" : "none",
-          left: `${leftPos}px`, // Add px units to ensure CSS recognizes the values correctly
+          left: `${leftPos}px`,
           top: `${topPos}px`,
+          backgroundColor: task.NoteColor,
         }}
         ref={NoteDiv}
         onMouseDown={MDown}
@@ -114,7 +133,10 @@ function StickyNote({
             />
             <label htmlFor="completed">Completed</label>
           </div>
-          <div onClick={() => getTaskid(index)} className="t-icon">
+          <div
+            className="t-icon"
+            onClick={() => dispach(Delete_a_Task(Number(index)))}
+          >
             <FontAwesomeIcon icon={faTrash} />
           </div>
         </div>
@@ -128,9 +150,4 @@ export default StickyNote;
 StickyNote.propTypes = {
   task: PropTypes.object,
   index: PropTypes.number,
-  getTaskid: PropTypes.func,
-  showCtask: PropTypes.bool,
-  showICtask: PropTypes.bool,
-  checkStatus: PropTypes.func,
-  getSN_Position: PropTypes.func,
 };
