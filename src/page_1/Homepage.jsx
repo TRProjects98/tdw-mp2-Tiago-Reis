@@ -4,10 +4,10 @@ function Homepage() {
     <>
       <section className="HSsection">
         <h1>Welcome to the Sicky Note App</h1>
-        <p>Create your tasks now!!!</p>
+        <Link to="/AboutMe">About this project</Link>
         <div>
           <Link className="HomeLinks" to="/Taskpage">
-            Stick it into a Note!
+            Create your tasks now!!!
           </Link>
         </div>
       </section>

@@ -72,8 +72,10 @@ export const {
 const store = configureStore({
   reducer: {
     tasks: TaskSlice.reducer,
+    //API Call
     [WeatherApi.reducerPath]: WeatherApi.reducer,
   },
+  //API middleware
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(WeatherApi.middleware),
 });

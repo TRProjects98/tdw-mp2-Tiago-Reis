@@ -129,6 +129,11 @@ main{
   gap: 20px;
 }
 
+.HSsection>a{
+  text-decoration: none;
+  color: white;
+}
+
 .HomeLinks{
   width: 100px;
   height: 100px;
@@ -214,4 +219,29 @@ form{
 #formColorTaskInput{
   height: 20px;
   padding: 0;
+}
+
+/*AboutMe*/
+
+.AboutSec{
+  height: 100vh;
+  display: flex;
+  padding: 30px;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.AboutTech{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.TechImg{
+  display: flex;
+  justify-content: space-between;
+}
+.TechImg>img{
+  width: 100px;
+  height: auto;
 }
