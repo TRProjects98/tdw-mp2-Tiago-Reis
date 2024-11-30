@@ -1,8 +1,32 @@
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const AboutSectionContainer = styled.section`
+  background-color: #163372;
+  color: white;
+  height: 100vh;
+  padding: 30px;
+
+  a > p {
+    margin-bottom: 20px;
+  }
+`;
+
+const AboutTechsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  height: 300px;
+
+  img {
+    width: 100px;
+  }
+`;
 function AboutProject() {
   return (
     <>
-      <section className="AboutSection">
+      <AboutSectionContainer>
         <h1>Hello</h1>
         <Link to="/">
           <p>Back home</p>
@@ -30,13 +54,13 @@ function AboutProject() {
           user-friendly interface. It showcases how multiple APIs and libraries
           can be orchestrated to build engaging, data-driven applications.
         </p>
-        <div className="AboutTechs">
+        <AboutTechsContainer>
           <img src="/MapsAPI.svg" alt="Logo" />
           <img src="/react.svg" alt="Logo" />
           <img src="/redux.svg" alt="Logo" />
           <img src="/OpenWatherAPI.png" alt="Logo" />
-        </div>
-      </section>
+        </AboutTechsContainer>
+      </AboutSectionContainer>
     </>
   );
 }
