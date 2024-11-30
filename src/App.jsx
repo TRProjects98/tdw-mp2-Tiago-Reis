@@ -1,12 +1,22 @@
 import "./App.css";
-import MapComponent from "./component/Map";
-import Weather from "./component/Weather";
+import { Routes, Route } from "react-router-dom";
+import Homepage from "./page1/Homepage";
+import WheatherDetails from "./page2/WheatherDetails";
+import { useJsApiLoader } from "@react-google-maps/api";
 
 function App() {
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: import.meta.env.VITE_MAPS_API,
+  });
+
+  if (!isLoaded) return <div>Loading Map...</div>;
+  if (loadError) return <div>Error Loading Maps</div>;
   return (
     <>
-      <MapComponent />
-      <Weather />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/:id" element={<WheatherDetails />} />
+      </Routes>
     </>
   );
 }

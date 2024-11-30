@@ -1,43 +1,43 @@
 h1, h2{
-  margin: 0;
-  color: white;
+    margin: 0;
+    color: white;
 }
 h3{
-  margin-top: 0;
+    margin-top: 0;
 }
 
 p{
-  margin: 0;
+    margin: 0;
 }
 
 a{
-  text-decoration: none;
-  color: white;
-  transition: 0.5s ease;
-  
+    text-decoration: none;
+    color: white;
+    transition: 0.5s ease;
+    
 }
 
 a:hover{
-  transform: scale(1.2);
-  cursor: pointer;
+    transform: scale(1.2);
+    cursor: pointer;
 }
 
 .WeatherBanner{
-  padding: 20px;
-  border-radius: 25px;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  z-index: 100000;
-  background-color: #A2BFFE;
-  color: white;
-  transform: translate(-50%, -10%);
+    padding: 20px;
+    border-radius: 25px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    z-index: 100000;
+    background-color: #A2BFFE;
+    color: white;
+    transform: translate(-50%, -10%);
 }
 
 .BannerHeader{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .BannerHeader>h3:last-child:hover{
@@ -45,33 +45,33 @@ cursor: pointer;
 }
 
 .WeatherIcons{
-  display: flex;
-  gap: 20px;
+    display: flex;
+    gap: 20px;
 }
 
 .WeaterData{
-  text-align: center;
+    text-align: center;
 }
 
 
 .DetailsSection{
-  background-color: #A2BFFE;
-  height: 100vh;
-  padding: 30px;
+    background-color: #A2BFFE;
+    height: 100vh;
+    padding: 30px;
 }
 
 .WdetailData{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px
 }
 
 .WeatherDayData{
- background-color: #163372;
- color: white;
- text-align: center;
- margin-top: 30px;
- border-radius: 25px;
- min-width: 200px;
- padding: 15px;
+   background-color: #163372;
+   color: white;
+   text-align: center;
+   margin-top: 30px;
+   border-radius: 25px;
+   min-width: 200px;
+   padding: 15px;
 }
