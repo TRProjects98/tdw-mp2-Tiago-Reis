@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ToogleBanner } from "../services/store";
 
-function WheatherDetails() {
+function WeatherDetails() {
   let { state } = useLocation();
 
   const dispatch = useDispatch();
@@ -53,4 +53,4 @@ function WheatherDetails() {
   );
 }
 
-export default WheatherDetails;
+export default WeatherDetails;

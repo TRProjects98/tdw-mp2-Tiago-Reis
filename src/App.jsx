@@ -1,8 +1,9 @@
-import "./App.css";
+import { useJsApiLoader } from "@react-google-maps/api";
 import { Routes, Route } from "react-router-dom";
 import Homepage from "./page1/Homepage";
-import WheatherDetails from "./page2/WheatherDetails";
-import { useJsApiLoader } from "@react-google-maps/api";
+import WeatherDetails from "./page2/WeatherDetails";
+import AboutProject from "./page3/AboutProject";
+import "./App.css";
 
 function App() {
   const { isLoaded, loadError } = useJsApiLoader({
@@ -15,7 +16,8 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/:id" element={<WheatherDetails />} />
+        <Route path="/:id" element={<WeatherDetails />} />
+        <Route path="/About" element={<AboutProject />} />
       </Routes>
     </>
   );

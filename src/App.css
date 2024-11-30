@@ -1,4 +1,4 @@
-h1, h2{
+h1, h2, h4{
     margin: 0;
     color: white;
 }
@@ -74,4 +74,37 @@ cursor: pointer;
    border-radius: 25px;
    min-width: 200px;
    padding: 15px;
+}
+
+.AboutSection {
+    background-color: #163372;
+    color: white;
+    height: 100vh;
+    padding: 30px;
+}
+
+.AboutSection>a>p{
+    margin-bottom: 20px;
+}
+
+.AboutTechs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-around;
+    align-items: center;
+    height: 300px;
+}
+
+.AboutTechs>img{
+    width: 100px;
+}
+
+.AboutBtn{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    padding: 5px 10px;
+    border-radius: 25px;
+    z-index: 10000000;
+    background-color: #163372;
 }

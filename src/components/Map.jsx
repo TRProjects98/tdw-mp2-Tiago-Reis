@@ -37,11 +37,6 @@ function MapComponent() {
     }
   }, [weatherData, dispatch]);
 
-  useEffect(() => {
-    // Dispatch initial coordinates to Redux store
-    dispatch(Add_Coordinates(center));
-  }, [dispatch]);
-
   const handleMapClick = (event) => {
     const lat = event.latLng.lat();
     const lng = event.latLng.lng();
