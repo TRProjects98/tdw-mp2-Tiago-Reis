@@ -1,32 +1,31 @@
-name: Build and Deploy to Firebase
+name: Firebase Deploy
 
 on:
   push:
     branches:
-      - main 
+      - main # Deploy only on pushes to the main branch
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      
-      - name: Checkout Code
+      # Step 1: Checkout the repository
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      
+      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18 # Use the Node.js version your project requires
 
-      # Install dependencies
-      - name: Install Dependencies
+      # Step 3: Install dependencies
+      - name: Install dependencies
         run: npm install
 
-      # Build the project
-      - name: Build Project
-        run: npm run build
+      # Step 4: Build the React app
+      - name: Build the project
         env:
           VITE_MAPS_API: ${{ secrets.VITE_MAPS_API }}
           VITE_WEATHER_API_KEY: ${{ secrets.VITE_WEATHER_API_KEY }}
@@ -36,11 +35,12 @@ jobs:
           VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
           VITE_FIREBASE_MESSAGE_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGE_SENDER_ID }}
           VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+        run: npm run build
 
-      # Deploy to Firebase
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@v2.4.0
+      # Step 5: Deploy to Firebase Hosting
+      - name: Deploy to Firebase Hosting
+        uses: firebase-tools/action@v10
         with:
-          args: deploy
+          args: deploy --only hosting
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
