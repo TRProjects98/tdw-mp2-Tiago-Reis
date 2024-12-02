@@ -13,6 +13,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      # Set environment variables for Contentful
+      - name: Set up environment variables
+        run: |
+          echo "VITE_MAPS_API=${{ secrets.VITE_MAPS_API }}" >> .env
+          echo "VITE_WEATHER_API_KEY=${{ secrets.VITE_WEATHER_API_KEY }}" >> .env
+
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
