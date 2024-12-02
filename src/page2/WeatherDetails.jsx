@@ -46,7 +46,7 @@ function WeatherDetails() {
     }
   }, [WeatherData, state]);
 
-  const filterHandler = (e) => {
+  const orderHandler = (e) => {
     if (e.target.value === "None") {
       const originalData = WeatherData.list.filter(
         (element) => element.dt_txt.split(" ")[0] === state
@@ -66,21 +66,53 @@ function WeatherDetails() {
     }
   };
 
+  const filterHandler = (e) => {
+    console.log(e.target.value);
+
+    if (e.target.value === "All") {
+      const AllData = WeatherData.list.filter(
+        (element) => element.dt_txt.split(" ")[0] === state
+      );
+      setDayData(AllData);
+    } else {
+      const filter = DayData.filter(
+        (element) => element.weather[0].main === e.target.value
+      );
+
+      setDayData(filter);
+    }
+  };
+
   return (
     <>
       <DetailsSectionContainer>
         <h1>
           {Location} ({state})
         </h1>
-        <label htmlFor="filters">Filters</label>
+        <label htmlFor="filters">Ordem</label>
         <select
           name="filters"
           defaultValue="None"
-          onChange={(e) => filterHandler(e)}
+          onChange={(e) => orderHandler(e)}
         >
           <option value="None">None</option>
           <option value="Alphabetical">Alphabetical</option>
           <option value="Reverse">Reverse</option>
+        </select>
+        <label htmlFor="filters">Filtros</label>
+        <select
+          name="filters"
+          defaultValue="All"
+          onChange={(e) => filterHandler(e)}
+        >
+          <option value="All">All</option>
+          <option value="Clouds">Clouds</option>
+          <option value="Clear">Clear</option>
+          <option value="Rain">Rain</option>
+          <option value="Tornado">Tornado</option>
+          <option value="Snow">Snow</option>
+          <option value="Thunderstorm">Thunderstorm</option>
+          <option value="Drizzle">Drizzle</option>
         </select>
         <Link
           to="/"
