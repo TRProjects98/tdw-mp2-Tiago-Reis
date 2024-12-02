@@ -39,7 +39,7 @@ jobs:
 
       # Deploy to Firebase
       - name: Deploy to Firebase
-        uses: actions/checkout@v4
+        uses: w9jds/firebase-action@v2.4.0
         with:
           args: deploy
         env:

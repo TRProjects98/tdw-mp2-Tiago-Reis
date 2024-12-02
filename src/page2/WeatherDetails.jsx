@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -31,32 +32,63 @@ function WeatherDetails() {
   let { state } = useLocation();
 
   const dispatch = useDispatch();
-
-  const WeatherData = useSelector((state) => state.weather.WeatherData);
   const Location = useSelector((state) => state.weather.Location);
+  const WeatherData = useSelector((state) => state.weather.WeatherData);
 
-  const DayData = [];
+  const [DayData, setDayData] = useState([]);
 
-  WeatherData.list.forEach((element) => {
-    if (element.dt_txt.split(" ")[0] === state) {
-      DayData.push(element);
+  useEffect(() => {
+    if (WeatherData?.list) {
+      const filteredData = WeatherData.list.filter(
+        (element) => element.dt_txt.split(" ")[0] === state
+      );
+      setDayData(filteredData);
     }
-  });
+  }, [WeatherData, state]);
 
-  console.log(DayData);
+  const filterHandler = (e) => {
+    if (e.target.value === "None") {
+      const originalData = WeatherData.list.filter(
+        (element) => element.dt_txt.split(" ")[0] === state
+      );
+      setDayData(originalData);
+    }
+
+    if (e.target.value === "Reverse") {
+      const reversed = [...DayData].reverse();
+      setDayData(reversed);
+    }
+    if (e.target.value === "Alphabetical") {
+      const alphabetical = [...DayData].sort((a, b) =>
+        a.weather[0].main.localeCompare(b.weather[0].main)
+      );
+      setDayData(alphabetical);
+    }
+  };
+
   return (
     <>
       <DetailsSectionContainer>
         <h1>
           {Location} ({state})
         </h1>
+        <label htmlFor="filters">Filters</label>
+        <select
+          name="filters"
+          defaultValue="None"
+          onChange={(e) => filterHandler(e)}
+        >
+          <option value="None">None</option>
+          <option value="Alphabetical">Alphabetical</option>
+          <option value="Reverse">Reverse</option>
+        </select>
         <Link
           to="/"
           onClick={() => {
             dispatch(ToogleBanner());
           }}
         >
-          <p>Back home</p>
+          <p>Back homies</p>
         </Link>
         <WdetailDataContainer>
           {DayData.map((element, index) => (
