@@ -39,7 +39,7 @@ jobs:
 
       # Step 5: Deploy to Firebase Hosting
       - name: Deploy to Firebase Hosting
-        uses: firebase-tools/action@v10
+        uses: w9jds/firebase-action@v3.0.0
         with:
           args: deploy --only hosting
         env:
