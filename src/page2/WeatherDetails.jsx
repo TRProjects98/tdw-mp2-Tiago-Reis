@@ -88,7 +88,7 @@ function WeatherDetails() {
             dispatch(ToogleBanner());
           }}
         >
-          <p>Back homies</p>
+          <p>Back home</p>
         </Link>
         <WdetailDataContainer>
           {DayData.map((element, index) => (
