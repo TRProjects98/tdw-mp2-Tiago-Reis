@@ -67,19 +67,18 @@ function WeatherDetails() {
   };
 
   const filterHandler = (e) => {
-    console.log(e.target.value);
-
     if (e.target.value === "All") {
       const AllData = WeatherData.list.filter(
         (element) => element.dt_txt.split(" ")[0] === state
       );
       setDayData(AllData);
     } else {
-      const filter = DayData.filter(
-        (element) => element.weather[0].main === e.target.value
+      const filteredData = WeatherData.list.filter(
+        (element) =>
+          element.dt_txt.split(" ")[0] === state &&
+          element.weather[0].main === e.target.value
       );
-
-      setDayData(filter);
+      setDayData(filteredData);
     }
   };
 
